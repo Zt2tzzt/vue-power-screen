@@ -22,16 +22,14 @@ const props = defineProps({
 const pieRef = ref(null)
 let ztChart = null
 
-const getOption = (pieData = {}) => {
+const getOption = (echartData = {}) => {
 
-	const colors = pieData.map(item => item.color)
-
-	const data = pieData.map(item => ({
+	const colors = echartData.map(item => item.color)
+	const data = echartData.map(item => ({
 		value: item.value,
 		name: item.name
 	}))
-
-	const total = pieData.reduce(
+	const total = echartData.reduce(
 		(accumulate, currentVal) => accumulate + currentVal.value * 1,
 		0
 	)
@@ -66,7 +64,7 @@ const getOption = (pieData = {}) => {
 			itemHeigth: 16,
 			icon: 'rect',
 			formatter: function (name) {
-				var currentItem = pieData.find(item => item.name === name)
+				var currentItem = echartData.find(item => item.name === name)
 				return (
 					'{nameSty|' +
 					currentItem.name +

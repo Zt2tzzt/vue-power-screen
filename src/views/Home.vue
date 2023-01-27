@@ -3,20 +3,31 @@ import PieChart from '@/components/PieChart.vue';
 import LineChart from '@/components/LineChart.vue';
 import BarChart from '@/components/BarChart.vue';
 import RightBottomSVG from '@/components/RightBottomSVG.vue';
+import CenterSvg from '@/components/CenterSvg.vue';
 
-import { chargingPileData, processMonitoringData, chargingStatisticsData } from './config/home-data';
+import { chargingPileData, processMonitoringData, chargingStatisticsData, exceptionMonitoringData, dataAnalysisData, chargingTop4Data } from './config/home-data';
 import { getPowerScreenData } from '@/services'
 import { ref } from 'vue';
+import BottomPanel from '@/components/BottomPanel.vue';
+import RightTopPanel from '@/components/RightTopPanel.vue';
 
 const chargingPile = ref(chargingPileData)
 const processMonitoring = ref(processMonitoringData)
 const chargingStatistics = ref(chargingStatisticsData)
+const exceptionMonitoring = ref(exceptionMonitoringData)
+const dataAnalysis = ref(dataAnalysisData)
+const chargingTop4 = ref(chargingTop4Data)
+const percentage = ref(0)
 
 getPowerScreenData().then(res => {
   console.log('res:', res)
   chargingPile.value = res.data.chargingPile.data,
   processMonitoring.value = res.data.processMonitoring.data
   chargingStatistics.value = res.data.chargingStatistics.data
+  exceptionMonitoring.value = res.data.exceptionMonitoring.data
+  dataAnalysis.value = res.data.dataAnalysis.data
+  chargingTop4.value = res.data.chargingTop4.data
+  percentage.value = res.data.chargingTop4.totalPercentage
 })
 
 </script>
@@ -33,19 +44,25 @@ getPowerScreenData().then(res => {
       <LineChart :echart-data="processMonitoring"></LineChart>
     </div>
 
-    <div class="enter"></div>
+    <div class="center">
+      <CenterSvg></CenterSvg>
+    </div>
 
-    <div class="right-top"></div>
+    <div class="right-top">
+      <RightTopPanel :percentage="percentage" :panel-data="chargingTop4"></RightTopPanel>
+    </div>
 
     <div class="right-center">
       <BarChart :echart-data="chargingStatistics"></BarChart>
     </div>
     
     <div class="right-bottom">
-      <RightBottomSVG></RightBottomSVG>
+      <RightBottomSVG :dots="exceptionMonitoring"></RightBottomSVG>
     </div>
     
-    <div class="bottom"></div>
+    <div class="bottom">
+      <BottomPanel :panel-data="dataAnalysis"></BottomPanel>
+    </div>
 
   </main>
 </template>
@@ -55,8 +72,11 @@ getPowerScreenData().then(res => {
   position: absolute;
   width: 100%;
   height: 100%;
+
+  background-color: #070a3c;
   background-image: url(@/assets/images/bg.png);
-  color: red;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .reuse {
@@ -139,9 +159,7 @@ getPowerScreenData().then(res => {
   right: 540px;
   bottom: 272px;
   width: 823px;
-  height: 710px;
-  
-  border: 5px pink solid;
+  height: 710px; 
 }
 
 .bottom {

@@ -102,17 +102,18 @@ const props = defineProps({
       /> 
 		-->
 
-		<!-- 只有一个点 -->
-		<circle class="hy-cls-3" cx="0" cy="0" r="5">
-			<animateMotion
-				dur="10s"
-				repeatCount="indefinite"
-				rotate="auto"
-				begin="0s"
-			>
-				<mpath href="#curve"></mpath>
-			</animateMotion>
-		</circle>
+		<template v-for="item of dots" :key="item.name">
+			<circle :class="`hy-cls-3`" cx="0" cy="0" :r="item.value">
+				<animateMotion
+					:dur="item.dur"
+					repeatCount="indefinite"
+					rotate="auto"
+					:begin="item.begin"
+				>
+					<mpath href="#curve"></mpath>
+				</animateMotion>
+			</circle>
+		</template>
 	</svg>
 </template>
 
@@ -138,6 +139,7 @@ const props = defineProps({
 .hy-cls-3,
 .hy-cls-4 {
 	fill: #f98800;
+	will-change: opacity;
 }
 
 .hy-cls-3 {
