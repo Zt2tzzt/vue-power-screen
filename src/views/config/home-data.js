@@ -82,7 +82,7 @@ export const chargingStatisticsData = [
 	}
 ]
 
-// 异常监控
+// 右下方-异常监控
 export const exceptionMonitoringData = [
 	/* {
 		id: 1,

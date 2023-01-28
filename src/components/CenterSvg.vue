@@ -1715,7 +1715,7 @@ onMounted(() => {
 .center-svg {
 	position: relative;
 }
-/* 烟花定位 */
+/* 定位 */
 .center-svg .lingxA {
   position: absolute;
   top: 30%;
@@ -1746,7 +1746,7 @@ onMounted(() => {
   top: 40%;
   left: 53%;
 }
-/* 烟花动画 */
+/* 动画 */
 .center-svg .lingxA {
   opacity: 0;
   animation: lingxA 2s linear infinite;
