@@ -46,6 +46,10 @@ const props = defineProps({
 				<stop offset="0.597" stop-color="#2bdcd2" />
 				<stop offset="1" stop-color="#2b6bdc" />
 			</linearGradient>
+			<!-- 
+				去掉了 x，y，width，height 属性，
+				用于编写的“点”的模糊效果
+			 -->
 			<filter id="hy-filter" filterUnits="userSpaceOnUse">
 				<feGaussianBlur result="blur" stdDeviation="6.667" in="SourceAlpha" />
 				<feComposite result="composite" />
@@ -105,10 +109,10 @@ const props = defineProps({
 		<template v-for="item of dots" :key="item.name">
 			<circle :class="`hy-cls-3`" cx="0" cy="0" :r="item.value">
 				<animateMotion
+					:begin="item.begin"
 					:dur="item.dur"
 					repeatCount="indefinite"
 					rotate="auto"
-					:begin="item.begin"
 				>
 					<mpath href="#curve"></mpath>
 				</animateMotion>

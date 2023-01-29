@@ -15,13 +15,14 @@ export default function useScalePage({
 
 		// 3.计算缩放比例
 		const currentRatio = currentX / currentY // 当前宽高比率
-		let scaleRatio = currentX / targetX;
+		let scaleRatio = 0
 
 		// 超宽屏
 		if(currentRatio > targetRatio) {
 			scaleRatio = currentY / targetY
 			document.body.style = `width:${targetX}px; height:${targetY}px; transform: scale(${scaleRatio}) translateX(-50%); left: 50%` // 使用 transform，新增一个渲染层
 		} else {
+			scaleRatio = currentX / targetX;
 			document.body.style = `width:${targetX}px; height:${targetY}px; transform: scale(${scaleRatio})`
 		}
 	}, 100, { trailing: true })

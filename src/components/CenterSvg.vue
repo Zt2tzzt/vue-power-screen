@@ -24,7 +24,7 @@ onMounted(() => {
 		transformOrigin: 'bottom',
 		opacity: 1,
 		y: 0
-	}, '-=1')
+	}, '-=1') // '-=1'，代表时间线中的该动画，与上一个动画同时执行
 })
 </script>
 
